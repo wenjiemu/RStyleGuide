@@ -8,7 +8,7 @@
 ## 3. R编码风格约定
 ### 3.1 摘要
 1. 文件命名: 以.R (大写) 结尾  
-2. 标识符命名：variable_name(or variableName),FunctionName, kConstantName
+2. 标识符命名：variable_name(or variableName),functionName, kConstantName
 3. 单行长度: 不超过80 个字符  
 4. 缩进: 两个空格, 不使用制表符
 5. 空白
@@ -43,8 +43,8 @@ stuff.r
 ```
 #### 2) 标识符命名
 - 在标识符中不要使用连字符( - )。标识符应根据如下惯例命名。
-> 变量名首选形式为：所有的字母或单词小写，并用下划线分隔(variable_name)，但也接受variableName;  
-> 函数名首字母大写, 不用点分隔(FunctionName);  
+> 变量名首选形式为：所有的字母或单词小写，并用下划线分隔(variable_name)，但也接受variableName;  
+> 函数名采用小驼峰命名法, 不用点分隔(functionName);  
 > 常数命名规则与函数类似, 但需要以k开头。  
 - 首选variable_name，但variableName也行
 ```
@@ -61,13 +61,13 @@ DayOne
 dayone
 djm1
 ```
-- FunctionName
+- functionName
 ```
 # 正例
-CalculateAvgClicks
+calculateAvgClicks
 
 # 反例
-calculate_avg_clicks , calculateAvgClicks
+calculate_avg_clicks
 ```
 - 函数命名应为动词或动词性短语。
 > 例外：当创建一个含类(class) 属性的对象时, 函数名(也是constructor)和类名(class) 应当匹配(例如, lm)。
@@ -82,22 +82,22 @@ mean <- function(x) sum(x)
 Henrik Bengtsson教授的建议
 1. 变量命名建议
 ```
-> (1) 变量命名尽量少用缩写，e.g. fileName而不是flNm，但某些约定俗成的词最好还是保留缩写，但首字母大写外，其余都用小写，Html而不是HTML，也不是HyperTextMarkupLanguage；  
-> (2) 临时变量要尽量短，让读者明确该变量仅在某几行代码内有效，e.g. i或ii而不是iterationNumber；    
-> (3) 变量命名要有可读性，e.g. okButton、mainWindow或leftScrollbar而不是Flag或variable；  
-> (4) 变量命名时要突出某些变量的类型，如矩阵、列表，e.g. 如果matrixElement代表矩阵的某一个元素，需要使用matrixElementList代表矩阵元素列表，而不是使用matrixElements表示；  
-> (5) 变量如果表示物体或者实体数量时，尽量使用nXXXX表示，e.g. nPoints和nLines代表点和线的数量，而不是points；   
-> (6) 变量如果表示实体的编号时，尽量使用xxxNo表示，e.g. tableNo或employeeNo.
+1. 变量命名尽量少用缩写，e.g. fileName而不是flNm，但某些约定俗成的词最好还是保留缩写，但首字母大写外，其余都用小写，Html而不是HTML，也不是HyperTextMarkupLanguage；  
+2. 临时变量要尽量短，让读者明确该变量仅在某几行代码内有效，e.g. i或ii而不是iterationNumber；    
+3. 变量命名要有可读性，e.g. okButton、mainWindow或leftScrollbar而不是Flag或variable；  
+4. 变量命名时要突出某些变量的类型，如矩阵、列表，e.g. 如果matrixElement代表矩阵的某一个元素，需要使用matrixElementList代表矩阵元素列表，而不是使用matrixElements表示；  
+5. 变量如果表示物体或者实体数量时，尽量使用nXXXX表示，e.g. nPoints和nLines代表点和线的数量，而不是points；   
+6. 变量如果表示实体的编号时，尽量使用xxxNo表示，e.g. tableNo或employeeNo.
 ```
 
 2. 函数命名建议
 ```
-> (1) 函数命名要注意减少复杂度，e.g. setTopic(topic)而不是setTopic(value)，getLength(line)而不是getLineLength(line)；  
-> (2) 如果函数返回值为布尔型，最好把is作为前缀，e.g. isSet()、isVisible()或isOpen()而不是isFlag()或whetherOpen()，也可用hascanshould代替is；但不要用逻辑关系词not，e.g. isNotOpen()；  
-> (3) 如果函数需要一定时间遍历或者计算某个变量的值，最好使用find作为前缀，e.g. findNearestVertex(vertex)或findMinElement(matrix)；当不需要计算即可直接获得的可以使用get作为前缀，e.g. getDictionary(Dictionary)或getValue(value)；  
-> (4) 如果函数用于初始化，则使用initialize作为前缀，e.g. initializeFontSet(printer)而不是initFontSet(printer)；  
-> (5) 如果某两个函数有相关性，尽量使用对称的动词作为前缀，减少命名复杂度，e.g. getName(name) v.s. setName(name)，addStudent(student) v.s. removeStudent(student)，或create/destroy，start/stop，begin/end或next/previous；  
-> (6) 函数命名不要使用缩写，不要用cmd代替command，或用cp代替copy等，e.g. computeAverage()而不是compAvg().
+1. 函数命名要注意减少复杂度，e.g. setTopic(topic)而不是setTopic(value)，getLength(line)而不是getLineLength(line)；  
+2. 如果函数返回值为布尔型，最好把is作为前缀，e.g. isSet()、isVisible()或isOpen()而不是isFlag()或whetherOpen()，也可用hascanshould代替is；但不要用逻辑关系词not，e.g. isNotOpen()；  
+3. 如果函数需要一定时间遍历或者计算某个变量的值，最好使用find作为前缀，e.g. findNearestVertex(vertex)或findMinElement(matrix)；当不需要计算即可直接获得的可以使用get作为前缀，e.g. getDictionary(Dictionary)或getValue(value)；  
+4. 如果函数用于初始化，则使用initialize作为前缀，e.g. initializeFontSet(printer)而不是initFontSet(printer)；  
+5. 如果某两个函数有相关性，尽量使用对称的动词作为前缀，减少命名复杂度，e.g. getName(name) v.s. setName(name)，addStudent(student) v.s. removeStudent(student)，或create/destroy，start/stop，begin/end或next/previous；  
+6. 函数命名不要使用缩写，不要用cmd代替command，或用cp代替copy等，e.g. computeAverage()而不是compAvg().
 ```
 ### 3.3 语法
 #### 3) 单行长度
@@ -242,7 +242,7 @@ x = 5
 #### 11)	 注释准则
 - 注释您的代码. 整行注释应以# 后接一个空格开始。
 - 行内短注释应在代码后接两个空格, #, 再接一个空格。
-- 使用 - 或 = 组成的线将文件分割为不同的块儿。
+- 使用 - 或 = 组成的线将文件分割为不同的块儿。
 ```
 # Load data ---------------------------
 
