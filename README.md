@@ -2,8 +2,8 @@
 ## 1. 目的
 该文档记录深圳电网项目组R语言编码风格约定。这份R 语言编码风格指南旨在让我们team的R代码更容易阅读、分享和检查。
 ## 2. 参考文档
-- R Style Guide by Hadley Wickham
 - Google R Style Guide
+- R Style Guide by Hadley Wickham
 - R Coding Conventions by Henrik Bengtsson 
 ## 3. R编码风格约定
 ### 3.1 摘要
