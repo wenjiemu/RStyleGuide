@@ -142,7 +142,8 @@ one or more lines
 # 反例一
 if (condition) {
 one or more lines
-} else {
+} 
+else {
 one or more lines
 }
 
