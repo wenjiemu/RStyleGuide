@@ -8,7 +8,7 @@
 ## 3. R编码风格约定
 ### 3.1 摘要
 1. 文件命名: 以.R (大写) 结尾  
-2. 标识符命名：variable.name(or variableName),FunctionName, kConstantName  
+2. 标识符命名：variable_name(or variableName),FunctionName, kConstantName
 3. 单行长度: 不超过80 个字符  
 4. 缩进: 两个空格, 不使用制表符
 5. 空白
@@ -28,25 +28,38 @@
 ```
 # 正例
 predict_ad_revenue.R
+fit-models.R
+utility-functions.R
  
 # 反例
 foo.R
+stuff.r
 ```
-#### 2)	标识符命名
-- 在标识符中不要使用下划线( _ ) 或连字符( - )。标识符应根据如下惯例命名。
-> 变量名首选形式为：所有的字母或单词小写，并用点分隔(variable.name)，但也接受variableName;  
+如果文件需要按顺序运行，那么文件名应该加上数字前缀。
+```
+0-download.R
+1-parse.R
+2-explore.R
+```
+#### 2) 标识符命名
+- 在标识符中不要使用连字符( - )。标识符应根据如下惯例命名。
+> 变量名首选形式为：所有的字母或单词小写，并用下划线分隔(variable_name)，但也接受variableName;  
 > 函数名首字母大写, 不用点分隔(FunctionName);  
 > 常数命名规则与函数类似, 但需要以k开头。  
-- 首选variable.name，但variableName也行
+- 首选variable_name，但variableName也行
 ```
 # 正例
-avg.clicks
+day_one
+day_1
 
 # 还行
-avgClicks
+dayOne
 
 # 反例
-avg_Clicks
+first_day_of_the_month
+DayOne
+dayone
+djm1
 ```
 - FunctionName
 ```
@@ -59,23 +72,44 @@ calculate_avg_clicks , calculateAvgClicks
 - 函数命名应为动词或动词性短语。
 > 例外：当创建一个含类(class) 属性的对象时, 函数名(也是constructor)和类名(class) 应当匹配(例如, lm)。
 - kConstantName
+- 尽可能避免使用已经存在的函数名和变量名，否则可能会使读者困惑。
+```
+# 反例
+T <- FALSE
+c <- 10
+mean <- function(x) sum(x)
+```
 ### 3.3 语法
-#### 3)	单行长度
+#### 3) 单行长度
 - 最大单行长度为80 个字符。
-#### 4)	缩进
+#### 4) 缩进
 - 使用两个空格来缩进代码。永远不要使用制表符或混合使用二者。
 > 例外：当括号内发生折行时, 所折行与括号内的第一个字符对齐。
-#### 5)	空白
+```
+# 例如
+long_function_name <- function(a = "a long argument", 
+                               b = "another argument",
+                               c = "another long argument") {
+  # As usual code is indented by two spaces.
+}
+```
+#### 5) 空白
 - 在所有二元操作符(=, +, -, <-, 等等) 的两侧加上空格。
 > 例外：在函数调用中传递参数时 = 两边的空格可加可不加。
 - 不可在逗号前加空格, 逗号后总须加空格。
 ```
-# 正例
+# 正例一
+average <- mean(feet / 12 + inches, na.rm = TRUE)
+
+# 反例一
+average<-mean(feet/12+inches,na.rm=TRUE)
+
+# 正例二
 tab.prior <- table(df[df$days.from.opt < 0, "campaign.id"])
 total <- sum(x[, 1])
 total <- sum(x[1, ])
 
-# 反例
+# 反例二
 tab.prior <- table(df[df$days.from.opt<0, "campaign.id"])  # 在'<' 两侧需增加空格
 tab.prior <- table(df[df$days.from.opt < 0,"campaign.id"])  # 逗号后需要一个空格
 tab.prior<- table(df[df$days.from.opt < 0, "campaign.id"])  # 在<- 前需要一个空格
@@ -83,17 +117,29 @@ tab.prior<-table(df[df$days.from.opt < 0, "campaign.id"])  # 在<- 两侧需要�
 total <- sum(x[,1])  # 逗号后需要一个空格
 total <- sum(x[ ,1])  # 逗号后需要一个空格, 而非逗号之前
 ```
+> 例外：:, :: and :::两边不需要加空格。
+```
+# 正例
+x <- 1:10
+base::get
+
+# 反例
+x <- 1 : 10
+base :: get
+```
 - 在前括号前加一个空格, 函数调用时除外。
 ```
 # 正例
 if (debug)
+plot(x, y)
 
 # 反例
 if(debug)
+plot (x, y)
 ```
 - 多加空格(即, 在行内使用多于一个空格) 也是可以的, 如果这样做能够改善等号或箭头(<-) 的对齐效果。
 ```
-plot(x    = xCoord,
+ plot(x    = xCoord,
       y    = dataMat[, makeColName(metric, ptiles[1], "roiOpt")],
       ylim = ylim,
       xlab = "dates",
@@ -111,25 +157,24 @@ x[1, ]
 if ( debug )  # debug 的两边不要加空格
 x[1,]  # 需要在逗号后加一个空格
 ```
-#### 6)	花括号
-- 前括号永远不应该独占一行；后括号应当总是独占一行。您可以在代码块只含单个语句时省略花括号；但在处理这类单个语句时, 您必须前后一致地要么全部使用花括号, 或者全部不用花括号。
+#### 6) 花括号
+- 前括号永远不应该独占一行；后括号应当总是独占一行（除非后面跟着else）。总是在括号内缩进代码。
 ```
 # 正例
-if (is.null(ylim)) {
-ylim <- c(0, 0.06)
+if (y < 0 && debug) {
+  message("Y is negative")
 }
 
-# 或者（但不同时）
-if (is.null(ylim))
-ylim <- c(0, 0.06)
+# 反例
+if (y < 0 && debug)
+message("Y is negative")
 ```
-- 总在新起的一行开始书写代码块的主体。
+- 可以将非常短的语句放在同一行。
 ```
-# 反例
-if (is.null(ylim)) ylim <- c(0, 0.06)
-if (is.null(ylim)) {ylim <- c(0, 0.06)}
+# 例如
+if (y < 0 && debug) message("Y is negative")
 ```
-#### 7)	else 
+#### 7) else 
 - else语句应该总被同一行的花括号包围。
 ```
 # 正例
@@ -142,7 +187,8 @@ one or more lines
 # 反例一
 if (condition) {
 one or more lines
-} else {
+} 
+else {
 one or more lines
 }
 
@@ -175,7 +221,13 @@ x = 5
 - 单元测试应该在一个命名为originalfilename_test.R的单独文件中。
 #### 11)	 注释准则
 - 注释您的代码. 整行注释应以# 后接一个空格开始。
--	行内短注释应在代码后接两个空格, #, 再接一个空格。
+- 行内短注释应在代码后接两个空格, #, 再接一个空格。
+- 使用 - 或 = 组成的线将文件分割为不同的块儿。
+```
+# Load data ---------------------------
+
+# Plot data ---------------------------
+```
 #### 12)	 函数的定义和调用
 -	函数定义应首先列出无默认值的参数, 然后再列出有默认值的参数。
 -	函数定义和函数调用中, 允许每行写多个参数; 折行只允许在赋值语句外进行。
@@ -223,6 +275,6 @@ return(covariance)
 }
 ```
 #### 15)	 TODO 书写风格
-- 编码时通篇使用一种一致的风格来书写TODO.
-- TODO(您的用户名): 所要采取行动的明确描述
-
+- 编码时通篇使用一种一致的风格来书写TODO。
+- TODO(您的用户名): 所要采取行动的明确描述。
+ 
